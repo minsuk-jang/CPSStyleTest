@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "SERVER_URL", "\"https://dapi.kakao.com/\""
+        buildConfigField "String", "API_KEY" ,"\"aba163ef62cc91ef79c242571bcf3557\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation(project(path: ":domain"))
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    //gson
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    //gson convertor
+    implementation "com.squareup.retrofit2:converter-gson:$convertor_gson_version"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    //coroutine-core
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_core_version"
+    //coroutine-android
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_android_version"
+
+    //logger
+    implementation "com.squareup.okhttp3:logging-interceptor:$http_logger"
+}
